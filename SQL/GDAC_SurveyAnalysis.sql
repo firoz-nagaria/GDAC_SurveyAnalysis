@@ -1,0 +1,46 @@
+-- How satisfied are the students on various parameters such as subjects, instructors, job readiness based on country, 
+--number of students participated in the survey, their purpose to join GDAC and 
+--if they applied for the job than what are their preference for job hunt?
+
+SELECT 	"Which_country_do_you_live_in?", 
+		COUNT(Respondent_ID) AS Patricipants, 
+		SUM("Why_did_you_enroll_in_the_GDAC?_(Get_a_job_in_data_analytics)") AS Job_as_Data_Analytics, 
+		SUM("Why_did_you_enroll_in_the_GDAC?_(Earn_a_certificate/statement_of_accomplishment)") AS Earn_a_certificate_accomplishment,
+		SUM("Why_did_you_enroll_in_the_GDAC?_(For_personal_growth_and_enrichment)") AS Personal_Growth,
+		SUM("Why_did_you_enroll_in_the_GDAC?_(Career_change)") AS Career_Change, 
+		SUM("Why_did_you_enroll_in_the_GDAC?_(Relevant_to_current_job)") AS Relevant_To_Current_Job,
+		SUM("Why_did_you_enroll_in_the_GDAC?_(Other)") AS Other,
+		SUM("What_resources_did_you_use_to_look_for_a_data_analytics_job?_(Social_media)") AS social_media,
+		SUM("What_resources_did_you_use_to_look_for_a_data_analytics_job?_(Job_boards_or_career_websites_(e.g._LinkedIn;_Indeed))") AS career_websites,
+		SUM("What_resources_did_you_use_to_look_for_a_data_analytics_job?_(Newspapers)") AS Newspapers,
+		SUM("What_resources_did_you_use_to_look_for_a_data_analytics_job?_(Networking)") AS Networking,
+		SUM("What_resources_did_you_use_to_look_for_a_data_analytics_job?_(Company_website)") AS Company_Websites,
+		SUM("What_resources_did_you_use_to_look_for_a_data_analytics_job?_(Recruitment_agencies)") AS Recruitment_Agencies,
+		SUM("What_resources_did_you_use_to_look_for_a_data_analytics_job?_(Other)") AS Other_Sources,
+		ROUND( AVG("What_is_your_overall_satisfaction_with_the_GDAC?"), 2) AS Satisfaction_level,
+		ROUND( AVG("I_believe_that_I_have_learned_skills/concepts_that_I_will_be_able_to_apply_when_working_as_a_data_analyst"), 2) AS Usefull_Skills_Learned_And_Able_To_Aplly_As_Data_Analyst,
+		ROUND( AVG("I_believe_that_I_have_obtained_the_necessary_skills_to_be_a_successful_data_analyst"), 2) AS Gain_Confidence_To_BE_Sucessful_Data_Analyst,
+		ROUND( AVG("The_capstone_project_allowed_me_to_combine_the_knowledge_I_gained_throughout_the_GDAC_and_put_it_to_practical_use"), 2) AS Capstone_Project_Helped_To_Utilize_All_Skills_To_Practical_Use,
+		ROUND( AVG("The_course_materials_were_well_organized_and_easy_to_follow"), 2) AS Course_Material_Organized_And_Easy_To_Follow,
+		ROUND( AVG("The_complexity_of_the_materials_was_approprate_to_my_background_and_experience"), 2) AS Complexity_Of_Materials_Was_Appropriate_To_Background_And_Experience, 
+		ROUND( AVG("Assignments_(weekly/course_challenges)_were_reflective_of_the_course_content"), 2) AS Challenges_Reflection_Of_The_Course,
+		ROUND( AVG("The_instructors_presented_the_materials_in_a_manner_that_contributed_to_my_learning"), 2) AS Presentaion_Method_Of_The_Materials_By_Instructors_Contributed_TO_Learning,
+		ROUND( AVG("The_instructors_made_data_analytics_interesting"), 2) AS Instructors_Made_The_Course_Interesting,
+		ROUND( AVG("The_instructors_pace_of_speech_was_at_the_right_speed"), 2) AS The_Pace_Of_Instructors_Speech_Was_At_The_Right_Speed,
+		ROUND( AVG("Spreadsheets"), 2) AS Spreadsheets, 
+		ROUND( AVG("BigQuery_(SQL)"), 2) AS "BigQuery_(SQL)", 
+		ROUND( AVG("R_programming"), 2) AS R_programming, 
+		ROUND( AVG("Tableau"), 2) AS Tableau, 
+		ROUND( AVG("Data_Visualization_concepts"), 2) AS Data_Visualization_concepts, 
+		ROUND( AVG("Asking_the_right_questions"), 2) AS Asking_the_right_questions, 
+		ROUND( AVG("Data_collection"), 2) AS Data_collection, 
+		ROUND( AVG("Data_cleansing"), 2) AS Data_cleansing, 
+		ROUND( AVG("Data_analysis"), 2) AS Data_analysis, 
+		ROUND( AVG("Presenting_the_data_findings"), 2) AS Presenting_the_data_findings, 
+		ROUND( AVG("Communicating_with_stakeholders/colleagues"), 2) AS "Communicating_with_stakeholders/colleagues", 
+		ROUND( AVG("To_what_extent_did_the_GDAC_teach_you_useful_job_hunt_skills?"), 2) AS GDAC_Teachings_Were_Helpful_For_Job_Hunt_Skills,
+		ROUND( AVG("To_what_extent_do_you_feel_job-ready_for_an_entry_level_data_analyst_position_following_your_GDAC_completion?"), 2) AS After_GDAC_Completion_Feeling_Ready_For_Entry_Level_Data_Analyst_Position
+FROM Evaluation_Survey es 
+GROUP BY "Which_country_do_you_live_in?" 
+ORDER BY COUNT(Respondent_ID) DESC
+
